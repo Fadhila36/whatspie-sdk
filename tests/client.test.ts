@@ -1,4 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { webcrypto } from 'node:crypto';
+
+if (!globalThis.crypto) {
+  globalThis.crypto = webcrypto as any;
+}
+
 import { WhatspieClient } from '../src/client';
 import {
   WhatspieAuthenticationError,
@@ -126,8 +132,8 @@ describe('WhatspieClient', () => {
     const secret = 'supersecret';
     
     const enc = new TextEncoder();
-    const key = await crypto.subtle.importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-    const signatureBuffer = await crypto.subtle.sign('HMAC', key, enc.encode(payload));
+    const key = await globalThis.crypto.subtle.importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+    const signatureBuffer = await globalThis.crypto.subtle.sign('HMAC', key, enc.encode(payload));
     const signatureArray = Array.from(new Uint8Array(signatureBuffer));
     const signatureHex = signatureArray.map(b => b.toString(16).padStart(2, '0')).join('');
 

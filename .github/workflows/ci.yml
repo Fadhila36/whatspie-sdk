@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       matrix:
         runtime: ['node', 'bun', 'deno']
@@ -48,5 +50,5 @@ jobs:
       if: matrix.runtime == 'node'
     - run: bun test
       if: matrix.runtime == 'bun'
-    - run: deno test --allow-net --allow-env
+    - run: deno test --allow-net --allow-env --unstable-sloppy-imports
       if: matrix.runtime == 'deno'

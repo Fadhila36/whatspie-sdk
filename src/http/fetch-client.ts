@@ -86,12 +86,8 @@ export class HttpClient {
         }
 
         const customFetch = this.config.fetch || globalThis.fetch;
-        let response: Response;
-        try {
-          response = await customFetch(url, fetchOptions);
-        } finally {
-          clearTimeout(timeoutId);
-        }
+        const response = await customFetch(url, fetchOptions);
+        clearTimeout(timeoutId);
 
         if (this.config.onResponse) {
           await this.config.onResponse(response.clone());

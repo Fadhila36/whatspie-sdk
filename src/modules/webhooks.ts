@@ -22,8 +22,7 @@ export class WebhooksModule {
    * Remove webhook configuration for a device
    */
   public async remove(device: string): Promise<BaseResponse> {
-    const query = new URLSearchParams({ device });
-    return this.http.delete<BaseResponse>(`/webhooks?${query.toString()}`);
+    return this.http.delete<BaseResponse>(`/webhooks?device=${device}`);
   }
 
   /**

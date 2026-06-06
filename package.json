@@ -1,6 +1,6 @@
 {
   "name": "whatspie-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Universal, zero-dependency Whatspie WhatsApp API SDK for Node.js, Bun, and Edge.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fadhila36/whatspie-sdk.git"
+    "url": "git+https://github.com/Fadhila36/whatspie-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/fadhila36/whatspie-sdk/issues"
+    "url": "https://github.com/Fadhila36/whatspie-sdk/issues"
   },
-  "homepage": "https://github.com/fadhila36/whatspie-sdk#readme",
+  "homepage": "https://github.com/Fadhila36/whatspie-sdk#readme",
   "keywords": [
     "whatspie",
     "whatsapp",

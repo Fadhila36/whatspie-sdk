@@ -36,6 +36,7 @@ export interface SendVideoMessageRequest extends BaseMessageRequest {
     document: { url: string }; 
     caption?: string;
     fileName?: string;
+    mimetype: string;
   };
 }
 

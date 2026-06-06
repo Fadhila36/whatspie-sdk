@@ -1,5 +1,6 @@
 import { HttpClient } from '../http/fetch-client';
 import { BaseResponse } from '../types/responses';
+import { WhatspieAuthenticationError } from '../errors/WhatspieError';
 
 export class AuthModule {
   constructor(private http: HttpClient) {}
@@ -14,7 +15,10 @@ export class AuthModule {
       await this.http.get('/devices');
       return { status: true, message: 'Token is valid' };
     } catch (error) {
-      return { status: false, message: 'Token is invalid or expired' };
+      if (error instanceof WhatspieAuthenticationError) {
+        return { status: false, message: 'Token is invalid or expired' };
+      }
+      throw error;
     }
   }
 }

@@ -5,7 +5,7 @@ const client = new WhatspieClient({
   logger: true
 });
 
-const receiver = 'YOUR_PHONE_NUMBER'; // International format for 085311149860
+const receiver = 'YOUR_PHONE_NUMBER'; // International format
 
 async function run() {
   try {

@@ -67,13 +67,14 @@ export class MessagingModule {
     receiver: string,
     url: string,
     caption?: string,
-    simulateTyping: 0 | 1 = 0
+    simulateTyping: 0 | 1 = 0,
+    mimetype: string = 'video/mp4'
   ): Promise<MessageResponse> {
     const payload: SendVideoMessageRequest = {
       device,
       receiver,
       type: 'file',
-      params: { document: { url }, caption, fileName: 'video.mp4' }, 
+      params: { document: { url }, caption, fileName: 'video.mp4', mimetype }, 
       simulate_typing: simulateTyping,
     };
     return this.send(payload);

@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runtime: ['node', 'bun', 'deno']
+        node-version: ['18.x', '20.x', '22.x']
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js
+      if: matrix.runtime == 'node'
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Use Bun
+      if: matrix.runtime == 'bun'
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: 'latest'
+
+    - name: Use Deno
+      if: matrix.runtime == 'deno'
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: 'v1.x'
+        
+    - run: npm ci
+      if: matrix.runtime == 'node'
+    - run: bun install
+      if: matrix.runtime == 'bun'
+
+    - run: npm run build
+      if: matrix.runtime != 'deno'
+      
+    - run: npm run test
+      if: matrix.runtime == 'node'
+    - run: bun test
+      if: matrix.runtime == 'bun'
+    - run: deno test --allow-net --allow-env
+      if: matrix.runtime == 'deno'

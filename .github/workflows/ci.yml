@@ -13,8 +13,17 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       matrix:
-        runtime: ['node', 'bun', 'deno']
-        node-version: ['18.x', '20.x', '22.x']
+        include:
+          - runtime: node
+            version: '18.x'
+          - runtime: node
+            version: '20.x'
+          - runtime: node
+            version: '22.x'
+          - runtime: bun
+            version: 'latest'
+          - runtime: deno
+            version: 'v2.x'
 
     steps:
     - uses: actions/checkout@v4
@@ -23,20 +32,20 @@ jobs:
       if: matrix.runtime == 'node'
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ matrix.version }}
         cache: 'npm'
 
     - name: Use Bun
       if: matrix.runtime == 'bun'
       uses: oven-sh/setup-bun@v1
       with:
-        bun-version: 'latest'
+        bun-version: ${{ matrix.version }}
 
     - name: Use Deno
       if: matrix.runtime == 'deno'
-      uses: denoland/setup-deno@v1
+      uses: denoland/setup-deno@v2
       with:
-        deno-version: 'v1.x'
+        deno-version: ${{ matrix.version }}
         
     - run: npm ci
       if: matrix.runtime == 'node'

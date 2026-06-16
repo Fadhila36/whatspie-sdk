@@ -19,7 +19,7 @@ export class WhatspieClient {
   private config: WhatspieConfig;
 
   constructor(config: WhatspieConfig = {}) {
-    const token = config.token || (typeof process !== 'undefined' ? process.env?.WHATSPIE_TOKEN : undefined);
+    const token = config.token || (globalThis as any).process?.env?.WHATSPIE_TOKEN;
     
     if (!token) {
       throw new Error(

@@ -19,7 +19,8 @@ describe('WhatspieClient', () => {
   });
 
   afterEach(() => {
-    delete process.env.WHATSPIE_TOKEN;
+    const env = (globalThis as any).process?.env;
+    if (env) delete env.WHATSPIE_TOKEN;
   });
 
   it('should initialize successfully with a token', () => {
@@ -28,7 +29,8 @@ describe('WhatspieClient', () => {
   });
 
   it('should initialize successfully with process.env.WHATSPIE_TOKEN', () => {
-    process.env.WHATSPIE_TOKEN = 'env_token';
+    if (!(globalThis as any).process) (globalThis as any).process = { env: {} };
+    (globalThis as any).process.env.WHATSPIE_TOKEN = 'env_token';
     const client = new WhatspieClient();
     expect(client).toBeInstanceOf(WhatspieClient);
   });

@@ -50,5 +50,5 @@ jobs:
       if: matrix.runtime == 'node'
     - run: bun test
       if: matrix.runtime == 'bun'
-    - run: deno test --allow-net --allow-env --unstable-sloppy-imports
+    - run: deno run -A npm:vitest run
       if: matrix.runtime == 'deno'

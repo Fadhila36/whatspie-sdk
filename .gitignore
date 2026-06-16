@@ -46,4 +46,3 @@ Thumbs.db
 .env.production.local
 
 # Test scripts
-e2e-test.mjs

@@ -51,6 +51,8 @@ jobs:
       if: matrix.runtime == 'node'
     - run: bun install
       if: matrix.runtime == 'bun'
+    - run: deno install
+      if: matrix.runtime == 'deno'
 
     - run: npm run build
       if: matrix.runtime != 'deno'
